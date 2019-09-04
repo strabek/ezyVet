@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  <h1>Products</h1>
+  <table>
+    {% for key, product in products %}
+      <tr>
+        <td>
+          {{ product.name }}
+        </td>
+        <td>
+          {{ product.price|number_format(2) }}
+        </td>
+        <td>
+          <a href="{{ path('add_to_cart', {productIndex: key}) }}">Add to cart<a>
+        </td>
+      </tr>
+    {% endfor %}
+  </table>
+
+  <h1>Shopping cart total: {{ cartTotal|number_format(2) }}</h1>
+  <table>
+    {% for key, cartItem in cartItems %}
+      <tr>
+        <td>
+          {{ key }}
+        </td>
+        <td>
+          {{ cartItem.price|number_format(2) }}
+        </td>
+        <td>
+          {{ cartItem.quantity }}
+        </td>
+        <td>
+          {{ (cartItem.price * cartItem.quantity)|number_format(2) }}
+        </td>
+        <td>
+          <a href="{{ path('remove_from_cart', {itemIndex: key}) }}">Remove<a>
+        </td>
+      </tr>
+    {% endfor %}
+  </table>
+{% endblock %}
